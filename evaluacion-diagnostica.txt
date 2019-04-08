@@ -1,0 +1,107 @@
+(numeroAutos, i[0-x])
+(copiaNumAutos, i[0-N]
+(totalImpuestos, i[0-N])	//Precio suma de impuestos de todos los veh.
+(totalPrecioVenta, i[0-N])	//Precio todos los autos incluido impuestos
+(contadorAr, i[0-N])
+(contadorCo, i[0-N])
+(contadorCh, i[0-N])
+(contadorOtros, i[0-N])
+
+//Inicializamos los valores
+contadorAr <= 0
+contadorCo <= 0
+contadorCh <= 0
+contadorOtros <= 0
+
+Escriba "Ingrese el numero de autos que va a iniciar"
+Lea numeroAutos
+
+(marca[numeroAutos],  x[A-Z, a-z])
+(origen[numeroAutos], x[A-Z, a-z])
+(costo[numeroAutos],  i[0-N])
+(impuesto[numeroAutos],  i[0-N])
+(precioVenta[numeroAutos],  i[0-N])
+
+copiaNumAutos <= numeroAutos
+
+//Ingresamos la info en cada posicion
+Mientras (copiaNumAutos>0) Entonces
+	Escriba "Ingrese la marca del vehiculo # " + copiaNumAutos
+	Lea marca[copiaNumAutos]		
+		
+	Escriba "Ingrese el pais de origen [Argentina, Colombia, Chile, Otro]"
+	Lea origen[copiaNumAutos]	
+
+	Escriba "Ingrese el costo del vehiculo"
+	Lea costo[copiaNumAutos]	
+
+	copiaNumAutos <= copiaNumAutos-1
+Fin_Mientras
+
+//Reestablecemos el valor
+copiaNumAutos <= numeroAutos
+
+//Calculamos el impuesto de cada vehiculo segun su origen
+Mientras (copiaNumAutos>0) Entonces
+	Si (origen[copiaNumAutos]=="Argentina" OR origen[copiaNumAutos]=="Ar") Entonces
+		impuesto[copiaNumAutos]=(costo[copiaNumAutos]/100)*20]	//Impuesto 20% Arg	
+		contadorAr <= contadorAr+1
+	Si (origen[copiaNumAutos]=="Colombia" OR origen[copiaNumAutos]=="Co") Entonces
+		impuesto[copiaNumAutos]=(costo[copiaNumAutos]/100)*25]	//Impuesto 25% Col	
+		contadorCo <= contadorCo+1		
+
+	Si (origen[copiaNumAutos]=="Chile" OR origen[copiaNumAutos]=="Ch") Entonces
+		impuesto[copiaNumAutos]=(costo[copiaNumAutos]/100)*30]	//Impuesto 30% Ch	
+		contadorCh <= contadorAr+1		
+
+	Si (origen[copiaNumAutos]=="Otro") Entonces
+		impuesto[copiaNumAutos]=(costo[copiaNumAutos]/100)*40]	//Impuesto 40% Otros	
+		contadorOtros <= contadorOtros+1
+	copiaNumAutos <= copiaNumAutos-1
+Fin_Mientras
+
+//Reestablecemos el valor
+copiaNumAutos <= numeroAutos
+
+//Calculamos el costo de venta de todos (vehiculo + impuesto)
+Mientras (copiaNumAutos>0) Entonces
+	precioVenta[copiaNumAutos]=costo[copiaNumAutos]+impuesto[copiaNumAutos]
+	copiaNumAutos <= copiaNumAutos-1
+Fin_Mientras
+
+
+
+//Reestablecemos el valor
+copiaNumAutos <= numeroAutos
+
+//Imprime el total de impuestos
+Mientras (copiaNumAutos>0) Entonces
+	totalImpuestos <= impuesto[copiaNumAutos]
+	copiaNumAutos <= copiaNumAutos-1
+Fin_Mientras
+
+//Reestablecemos el valor
+copiaNumAutos <= numeroAutos
+
+//Imprime el total de impuestos
+Mientras (copiaNumAutos>0) Entonces
+	totalImpuestos <= impuesto[copiaNumAutos]
+	copiaNumAutos <= copiaNumAutos-1
+Fin_Mientras
+
+Escribe "Se ha importado " + numeroAutos + " autos."
+Escribe "Todos los autos en impuestos pagaran la suma de " + totalImpuestos + "$."
+
+//Reestablecemos el valor
+copiaNumAutos <= numeroAutos
+
+//Se debe imprimit el total de los precios de venta de los autos.
+Mientras (copiaNumAutos>0) Entonces
+	Escriba "El auto # " + copiaNumAutos + " tiene un costo de " + precioVenta[copiaNumAutos]
+	copiaNumAutos <= copiaNumAutos-1
+Fin_Mientras
+
+Escriba "Se han importado " contadorAr + " autos de Argentina."
+Escriba "Se han importado " contadorCo + " autos de Colombia."
+Escriba "Se han importado " contadorCh + " autos de Chile."
+Escriba "Se han importado " contadorOtros + " autos de otros paises."
